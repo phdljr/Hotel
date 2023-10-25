@@ -9,17 +9,33 @@ import java.util.List;
  * 장바구니
  */
 public class BasketDatabase {
-    private final List<Room> list = new ArrayList<>();
+    private final List<Room> basket = new ArrayList<>();
+    double totalPrice = 0;
+
+    public List<Room> getBasket() {
+        return basket;
+    }
+
+    public Room getRoom(int index){
+        return basket.get(index);
+    }
 
     public void addRoom(Room room) {
-        list.add(room);
+        basket.add(room);
+        totalPrice += room.getCost();
     }
 
     public void removeRoom(int index) {
-        list.remove(index);
+        totalPrice -= basket.get(index).getCost();
+        basket.remove(index);
     }
 
     public void clear() {
-        list.clear();
+        basket.clear();
+        totalPrice = 0;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
     }
 }
