@@ -4,7 +4,7 @@ public class Room {
     private int room_id;
     private String roomName;
     private RoomType roomType;
-    private double cost;
+    private long cost;
     private String customer_id;
 
     public int getRoom_id(){
@@ -19,7 +19,7 @@ public class Room {
         return roomType;
     }
 
-    public double getCost(){
+    public long getCost(){
         return cost;
     }
 

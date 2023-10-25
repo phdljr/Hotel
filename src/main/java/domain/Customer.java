@@ -31,6 +31,10 @@ public class Customer {
         return money;
     }
 
+    public void subtractMoney(long money) {
+        this.money -= money;
+    }
+
     public CustomerType getCustomerType() {
         return role;
     }

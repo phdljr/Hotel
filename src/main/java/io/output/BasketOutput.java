@@ -25,7 +25,7 @@ public class BasketOutput {
         List<Room> basket = basketDatabase.getBasket();
         for(int i=0; i<basket.size();i++){
             Room room = basket.get(i);
-            System.out.printf("%d. %s | %s | W %f", i+1, room.getRoomName(), room.getRoomType(), room.getCost());
+            System.out.printf("%d. %s | %s | W %d", i+1, room.getRoomName(), room.getRoomType(), room.getCost());
         }
     }
 
@@ -75,7 +75,7 @@ public class BasketOutput {
     }
     public void successRserveBasket(){ // 1. BasketService의 checkMoney가 ture이면
         printBasketTitle();
-        basketService.makeBasketToReservation(customer.getId());
+        basketService.makeBasketToReservation(customer);
         System.out.println("예약이 성공적으로 진행되었습니다.");
         System.out.println();
         // +3초뒤 메인화면으로 이동합니다.

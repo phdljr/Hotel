@@ -1,21 +1,34 @@
 package domain;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Reservation {
     private String uuid;
-    private int room_id;
-    private String customer_id;
-    private LocalDateTime DateTime;
+    private int roomId;
+    private String customerId;
+    private LocalDateTime dateTime;
 
-    public Reservation(String uuid, int room_id, String customer_id,LocalDateTime DateTime){
+    public Reservation(String uuid, int roomId, String customerId,LocalDateTime dateTime){
         this.uuid = uuid;
-        this.room_id = room_id;
-        this.customer_id = customer_id;
-        this.DateTime = DateTime;
+        this.roomId = roomId;
+        this.customerId = customerId;
+        this.dateTime = dateTime;
     }
 
     public String getUuid(){
         return uuid;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 }

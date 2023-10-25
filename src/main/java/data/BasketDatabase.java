@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class BasketDatabase {
     private final List<Room> basket = new ArrayList<>();
-    double totalPrice = 0;
+    long totalPrice = 0;
 
     public List<Room> getBasket() {
         return basket;
@@ -35,7 +35,7 @@ public class BasketDatabase {
         totalPrice = 0;
     }
 
-    public double getTotalPrice() {
+    public long getTotalPrice() {
         return totalPrice;
     }
 }

@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class BasketService {
-
     private final BasketDatabase basketDatabase;
     private final ReservationDatabase reservationDatabase;
 
@@ -24,14 +23,15 @@ public class BasketService {
         return basketDatabase.getTotalPrice() <= money;
     }
 
-    public void makeBasketToReservation(String customer_id){ //basket에 담긴 방들을 예약 리스트에 추가
+    public void makeBasketToReservation(Customer customer){ //basket에 담긴 방들을 예약 리스트에 추가
         LocalDateTime datetime = LocalDateTime.now();
 
         for(Room room : basketDatabase.getBasket()){
             String uuid = UUID.randomUUID().toString();
-            Reservation reservation = new Reservation(uuid, room.getRoom_id(),customer_id, datetime);
+            Reservation reservation = new Reservation(uuid, room.getRoom_id(),customer.getId(), datetime);
             reservationDatabase.addReservation(reservation);
         }
+        customer.subtractMoney(basketDatabase.getTotalPrice());
         basketDatabase.clear();
     }
 
