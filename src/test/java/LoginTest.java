@@ -9,8 +9,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class LoginTest {
 
-    private final CustomerDatabase customerDatabase = new CustomerDatabase();
-    private final CustomerService customerService = new CustomerService(customerDatabase);
+    private final CustomerService customerService = new CustomerService();
 
     @Test
     @DisplayName("로그인 성공")

@@ -7,11 +7,7 @@ import domain.CustomerType;
 import java.util.Objects;
 
 public class CustomerService {
-    private final CustomerDatabase customerDatabase;
-
-    public CustomerService(CustomerDatabase customerDatabase) {
-        this.customerDatabase = customerDatabase;
-    }
+    private final CustomerDatabase customerDatabase = new CustomerDatabase();
 
     public Customer login(String id){
         return findById(id);
