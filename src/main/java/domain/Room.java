@@ -1,14 +1,14 @@
 package domain;
 
 public class Room {
-    private int room_id;
+    private int roomId;
     private String roomName;
     private RoomType roomType;
     private long cost;
-    private String customer_id;
+    private String customerId;
 
-    public int getRoom_id(){
-        return room_id;
+    public int getRoomId(){
+        return roomId;
     }
 
     public String getRoomName(){
