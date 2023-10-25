@@ -28,7 +28,7 @@ public class BasketService {
 
         for(Room room : basketDatabase.getBasket()){
             String uuid = UUID.randomUUID().toString();
-            Reservation reservation = new Reservation(uuid, room.getRoom_id(),customer.getId(), datetime);
+            Reservation reservation = new Reservation(uuid, room.getRoomId(),customer.getId(), datetime);
             reservationDatabase.addReservation(reservation);
         }
         customer.subtractMoney(basketDatabase.getTotalPrice());
