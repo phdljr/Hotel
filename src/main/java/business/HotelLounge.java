@@ -68,6 +68,10 @@ public class HotelLounge {
             switch (step) {
                 case 1:
                     id = inputView.getInputString();
+                    if (customerService.contains(id)) {
+                        outputView.printAlreadyExistId();
+                        step--;
+                    }
                     step++;
                     break;
                 case 2:
@@ -79,7 +83,7 @@ public class HotelLounge {
                     step++;
                     break;
                 case 4:
-                    money = inputView.getInputNumber(0, 2100000000);
+                    money = inputView.getInputMoney();
                     step++;
                     break;
             }
@@ -87,6 +91,9 @@ public class HotelLounge {
         customer = customerService.signUp(id, name, phoneNumber, money);
     }
 
+    /**
+     * 로그인한 고객의 유형을 보고 출력할 메인 화면을 선택
+     */
     private void showMainView() {
         // 일반 손님이라면
         if (customer.getCustomerType() == CustomerType.CUSTOMER) {
@@ -94,11 +101,16 @@ public class HotelLounge {
         } else {
             showAdminMainView();
         }
+        outputView.printLogoutCommentView();
     }
 
+    /**
+     * 일반 손님일 경우의 메인 화면 출력
+     */
     private void showCustomerMainView() {
-        while (true) {
-            // 메인 화면 출력
+        boolean flag = true;
+        while (flag) {
+            outputView.printCustomerMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 5);
             switch (inputNumber) {
                 case 1:
@@ -107,19 +119,27 @@ public class HotelLounge {
                 case 4:
                     showMyPage();
                     break;
+                case 5:
+                    flag = showLogoutView();
+                    break;
             }
         }
     }
 
+    /**
+     * 관리자일 경우의 메인 화면 출력
+     */
     private void showAdminMainView() {
-        while (true) {
+        boolean flag = true;
+        while (flag) {
+            outputView.printAdminMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 2);
             switch (inputNumber) {
                 case 1:
 
                     break;
                 case 2:
-
+                    showLogoutView();
                     break;
             }
         }
@@ -130,7 +150,10 @@ public class HotelLounge {
         inputView.getInputNumber(1, 1);
     }
 
-    private void logout() {
-        customer = null;
+    private boolean showLogoutView() {
+        outputView.printLogoutView(customer);
+        int inputNumber = inputView.getInputNumber(1, 2);
+
+        return inputNumber == 2; // 취소를 선택할 때
     }
 }
