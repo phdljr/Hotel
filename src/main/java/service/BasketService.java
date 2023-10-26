@@ -25,6 +25,55 @@ public class BasketService {
         this.customer = customer;
     }
 
+    public void printInitView() {
+        String customerName = customer.getName();
+        List<Room> basket = basketDatabase.getBasket();
+        basketOutput.printBasketTitle(customerName);
+        basketOutput.printBasketText();
+        basketOutput.printBasketList(basket);
+        basketOutput.checkBasketMenu();
+    }
+
+    public void printReserveView() {
+        String customerName = customer.getName();
+        List<Room> basket = basketDatabase.getBasket();
+        long totalPrice = basketDatabase.getTotalPrice();
+        basketOutput.printBasketTitle(customerName);
+        basketOutput.printBasketList(basket);
+        basketOutput.printBasketPrice(totalPrice);
+        basketOutput.reserveBasket();
+    }
+
+    public void printResultOfReserveView() {
+        //예약 가능한지 확인
+        if (checkMoney(customer)) {
+            basketOutput.successReserveBasket();
+        } else {
+            basketOutput.failureReserveBasket();
+        }
+    }
+
+    public void cancelReserveView() {
+        String customerName = customer.getName();
+        List<Room> basket = basketDatabase.getBasket();
+        basketOutput.printBasketTitle(customerName);
+        basketOutput.deleteBasket();
+        basketOutput.printBasketList(basket);
+    }
+
+    public void confirmCancelView(int index) {
+        String customerName = customer.getName();
+        Room chosenRoom = basketDatabase.getRoom(index);
+        basketOutput.printBasketTitle(customerName);
+        basketOutput.confirmDeleteBasket(chosenRoom);
+    }
+
+    public void successCancelView() {
+        String customerName = customer.getName();
+        basketOutput.printBasketTitle(customerName);
+        basketOutput.successDeleteBasket();
+    }
+
     public void printBasketTitle() {
         String customerName = customer.getName();
         basketOutput.printBasketTitle(customerName);
