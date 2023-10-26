@@ -6,7 +6,6 @@ import data.ReservationDatabase;
 import domain.Customer;
 import domain.Reservation;
 import domain.Room;
-import io.output.BasketOutput;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -15,8 +14,6 @@ public class BasketService {
 
     private final BasketDatabase basketDatabase = new BasketDatabase();
     private final ReservationDatabase reservationDatabase = new ReservationDatabase();
-    private final BasketOutput basketOutput = new BasketOutput();
-
 
     public List<Room> returnBasketList() {
         List<Room> basket = basketDatabase.getBasket();
