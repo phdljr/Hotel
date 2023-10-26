@@ -9,7 +9,19 @@ public class BasketOutput {
         System.out.println("[ 뇌정지 호텔 - " + customerName + "님 ]");
     }
 
+    public void printBasketText() {
+        System.out.println("선택하신 객실을 확인해주세요.");
+        System.out.println();
+    }
+
+    public void checkBasketMenu() { // 장바구니 메뉴
+        System.out.println("1. 예약 진행");
+        System.out.println("2. 예약 제외");
+        System.out.println("3. 돌아가기");
+    }
+
     public void printBasketList(List<Room> basket) { // 장바구니 목록 출력
+        System.out.println();
         for (int i = 0; i < basket.size(); i++) {
             Room room = basket.get(i);
             System.out.printf("%d. %s | %s | W %d", i + 1, room.getRoomName(), room.getRoomType(),
@@ -25,17 +37,6 @@ public class BasketOutput {
         System.out.println();
     }
 
-    public void checkBasket() { // 장바구니 확인 문구
-        System.out.println("선택하신 객실을 확인해줏세요.");
-        System.out.println();
-    }
-
-    public void checkBasketMenu() { // 장바구니 메뉴
-        System.out.println("1. 예약 진행");
-        System.out.println("2. 예약 제외");
-        System.out.println("3. 돌아가기");
-    }
-
     public void reserveBasket() { // 1. 예약 진행 문구
         System.out.println("예약을 진행하시겠습니까?");
         System.out.println();
@@ -48,7 +49,7 @@ public class BasketOutput {
     }
 
     public void confirmDeleteBasket(Room room) { // 2. 예약 제외 확인  문구
-        System.out.println("해당 객식을 예약 목록에서 제외하시겠습니까?");
+        System.out.println("해당 객실을 예약 목록에서 제외하시겠습니까?");
         System.out.println();
         System.out.println(
             "\"- " + room.getRoomName() + " | " + room.getRoomType() + " | W " + room.getCost()
