@@ -10,22 +10,37 @@ public class OutputView {
         System.out.println();
     }
 
+    public void printLoginView(){
+        System.out.println("[ 뇌정지 호텔 ]");
+        System.out.println("로그인 정보를 입력해 주세요.");
+        System.out.println();
+        System.out.print("ID: ");
+    }
+
+    public void printWrongInputId(){
+        System.out.println("로그인 정보가 잘못되었습니다.");
+        System.out.println();
+    }
+
+    public void printSignUpTitleView(){
+        System.out.println("[ 뇌정지 호텔 ]");
+        System.out.println("회원가입 정보를 입력해 주세요.");
+        System.out.println("전화번호를 다음 형식과 같이 입력해 주세요. (XXX-XXXX-XXXX)");
+        System.out.println();
+    }
+
     public void printSignUpView(int step){
         switch (step){
-            case 0:
-                System.out.println("[ 뇌정지 호텔 ]");
-                System.out.println("회원가입 정보를 입력해 주세요.");
-                System.out.println("전화번호를 다음 형식과 같이 입력해 주세요. (XXX-XXXX-XXXX)");
-                System.out.println();
+            case 1:
                 System.out.print("ID: ");
                 break;
-            case 1:
+            case 2:
                 System.out.print("이름: ");
                 break;
-            case 2:
+            case 3:
                 System.out.print("전화번호: ");
                 break;
-            case 3:
+            case 4:
                 System.out.print("소지금: ");
                 break;
         }
