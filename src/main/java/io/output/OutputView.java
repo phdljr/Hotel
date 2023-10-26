@@ -2,6 +2,7 @@ package io.output;
 
 import domain.Customer;
 import domain.Reservation;
+import domain.Room;
 import java.util.List;
 
 public class OutputView {
@@ -116,5 +117,24 @@ public class OutputView {
     public void printLogoutCommentView() {
         System.out.println("로그아웃이 정상적으로 처리되었습니다.");
         System.out.println();
+    }
+
+    public void printSelectRoomView(Customer customer, List<Room> rooms) {
+        System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
+        System.out.println("예약하실 객실을 선택해 주세요.");
+        System.out.println();
+        for (int i = 0; i < rooms.size(); i++) {
+            Room room = rooms.get(i);
+            int roomId = room.getNumber();
+//            RoomType roomType = room.getRoomType();
+            long roomCost = room.getCost();
+            String isReserved = room.isReserved() ? "예약 완료" : "예약 가능";
+            System.out.printf("%d. %d호 | W %d | %s\n", i + 1, roomId, roomCost, isReserved);
+        }
+        System.out.println();
+    }
+
+    public void printAlreadyReservedRoomView() {
+        System.out.println("이미 예약된 방입니다.");
     }
 }
