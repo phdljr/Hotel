@@ -1,4 +1,4 @@
-package io;
+package business;
 
 import domain.Customer;
 import domain.CustomerType;
@@ -37,8 +37,7 @@ public class HotelLounge {
     }
 
     /**
-     * 로그인 화면 출력
-     * 이 메소드가 호출되고나서 종료되면, 로그인 된걸로 간주
+     * 로그인 화면 출력 이 메소드가 호출되고나서 종료되면, 로그인 된걸로 간주
      */
     private void showLoginView() {
         outputView.printLoginView();
@@ -64,9 +63,9 @@ public class HotelLounge {
 
         int step = 1;
         outputView.printSignUpTitleView();
-        while (step != 5){
+        while (step != 5) {
             outputView.printSignUpView(step);
-            switch (step){
+            switch (step) {
                 case 1:
                     id = inputView.getInputString();
                     step++;
