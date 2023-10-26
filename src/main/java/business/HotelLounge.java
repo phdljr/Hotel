@@ -233,8 +233,16 @@ public class HotelLounge {
     }
 
     private void showFinishBasketView() { // 장바구니 종료 화면
-        basketOutput.waitInform();
-        basketService.waitThread();
+        waitForThreeSec();
+    }
+
+    public void waitForThreeSec() { //3초 뒤 메인화면으로 돌아가는 메소드
+        System.out.println("3초 뒤에 메인 화면으로 이동합니다.");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     // -------장바구니 화면 끝------------
 

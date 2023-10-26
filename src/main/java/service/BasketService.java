@@ -56,12 +56,5 @@ public class BasketService {
         basketDatabase.removeRoom(index);
     }
 
-    public void waitThread() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

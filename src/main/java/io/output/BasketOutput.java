@@ -77,8 +77,4 @@ public class BasketOutput {
         System.out.println();
     }
 
-    public void waitInform() {
-        System.out.println("3초 뒤에 메인 화면으로 이동합니다.");
-    }
-
 }
