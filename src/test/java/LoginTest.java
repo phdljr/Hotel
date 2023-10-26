@@ -1,4 +1,3 @@
-import data.CustomerDatabase;
 import domain.Customer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("로그인 성공")
-    public void loginSuccessTest(){
+    public void loginSuccessTest() {
         // given
 
         // when
@@ -25,7 +24,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("로그인 실패")
-    public void loginFailTest(){
+    public void loginFailTest() {
         // given
 
         // when
@@ -37,7 +36,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("어드민 권한을 가졌는지 확인")
-    public void isAdminTest(){
+    public void isAdminTest() {
         // given
 
         // when
@@ -50,7 +49,7 @@ public class LoginTest {
 
     @Test
     @DisplayName("일반 손님 권한을 가졌는지 확인")
-    public void isCustomerTest(){
+    public void isCustomerTest() {
         // given
 
         // when
