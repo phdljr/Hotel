@@ -17,7 +17,7 @@ public class InputView {
                 st = new StringTokenizer(br.readLine());
                 int inputNumber = Integer.parseInt(st.nextToken());
 
-                if(!(start <= inputNumber && inputNumber <= from)){
+                if (!(start <= inputNumber && inputNumber <= from)) {
                     throw new IllegalArgumentException();
                 }
 
@@ -29,7 +29,25 @@ public class InputView {
     }
 
     /**
+     * 돈 입력받는 메소드
+     *
+     * @return long
+     */
+    public long getInputMoney() {
+        while (true) {
+            try {
+                st = new StringTokenizer(br.readLine());
+
+                return Long.parseLong(st.nextToken());
+            } catch (IllegalArgumentException | IOException e) {
+                System.out.println("입력이 잘못되었습니다.");
+            }
+        }
+    }
+
+    /**
      * 문자열 입력 메소드
+     *
      * @return
      */
     public String getInputString() {
@@ -44,6 +62,7 @@ public class InputView {
 
     /**
      * 전화번호 형식에 맞는 입력 메소드
+     *
      * @return
      */
     public String getInputPhoneNumber() {
@@ -51,12 +70,12 @@ public class InputView {
             try {
                 String input = br.readLine();
 
-                if(!Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", input)){
+                if (!Pattern.matches("^\\d{3}-\\d{3,4}-\\d{4}$", input)) {
                     throw new IllegalArgumentException();
                 }
 
                 return input;
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("입력이 잘못되었습니다.");
             }
         }
