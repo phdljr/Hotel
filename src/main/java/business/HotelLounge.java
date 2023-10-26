@@ -125,7 +125,6 @@ public class HotelLounge {
             int inputNumber = inputView.getInputNumber(1, 5);
             switch (inputNumber) {
                 case 1:
-
                     break;
                 case 2:
                     showCancelReservationView();
