@@ -2,19 +2,15 @@ package data;
 
 import domain.Room;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RoomDatabase {
-    private final List<Room> list = new ArrayList<>();
+    private final Map<Integer, Room> roomMap = new HashMap();
 
     public RoomDatabase() {
-        list.add(new Room());
-        list.add(new Room());
-        list.add(new Room());
-    }
-
-    public Room findByIndex(int index) {
-        return list.get(index);
+        roomMap.put(1, new Room());
+        roomMap.put(2, new Room());
+        roomMap.put(3, new Room());
     }
 }
