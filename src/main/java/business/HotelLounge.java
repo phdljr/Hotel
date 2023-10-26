@@ -121,64 +121,7 @@ public class HotelLounge {
 
                     break;
                 case 3: //장바구니 화면
-                    boolean basketFlag = true;
-                    while (basketFlag) {
-                        basketOutput.printBasketTitle(customer.getName());
-                        basketOutput.printBasketText();
-                        if (basketService.returnBasketList().isEmpty()) {
-                            basketOutput.haveEmptyBasket();
-                            basketOutput.waitInform();
-                            basketService.waitThread();
-                            break;
-                        }
-                        basketOutput.printBasketList(basketService.returnBasketList());
-                        basketOutput.checkBasketMenu();
-                        int input = inputView.getInputNumber(1, 3);
-                        switch (input) {
-                            case 1: //예약 진행
-                                basketOutput.printBasketTitle(customer.getName());
-                                basketOutput.printBasketList(basketService.returnBasketList());
-                                basketOutput.printBasketPrice(basketService.returnBasketPrice());
-                                basketOutput.reserveBasket();
-                                int reserveConfirm = inputView.getInputNumber(1, 2);
-                                if (reserveConfirm == 1) {
-                                    if (basketService.checkMoney(customer)) {
-                                        basketService.makeBasketToReservation(customer);
-                                        basketOutput.successReserveBasket();
-                                        basketOutput.waitInform();
-                                        basketService.waitThread();
-                                        basketFlag = false;
-                                    } else {
-                                        basketOutput.failureReserveBasket();
-                                        basketOutput.waitInform();
-                                        basketService.waitThread();
-                                        basketFlag = false;
-                                    }
-                                }
-                                break;
-                            case 2: //예약 취소
-                                basketOutput.printBasketTitle(customer.getName());
-                                basketOutput.deleteBasket();
-                                basketOutput.printBasketList(basketService.returnBasketList());
-                                int index = inputView.getInputNumber(1,
-                                    basketService.returnBasketList().size()) - 1;
-                                basketOutput.printBasketTitle(customer.getName());
-                                basketOutput.confirmDeleteBasket(
-                                    basketService.returnRoomToCancel(index));
-                                int cancelConfirm = inputView.getInputNumber(1, 2);
-                                if (cancelConfirm == 1) {
-                                    basketService.deleteRoomFromBasket(index);
-                                    basketOutput.successDeleteBasket();
-                                    basketOutput.waitInform();
-                                    basketService.waitThread();
-                                    basketFlag = false;
-                                }
-                                break;
-                            case 3: //메인 메뉴로 돌아가기
-                                basketFlag = false;
-                                break;
-                        }
-                    }
+                    showBasketView();
                     break;
                 case 4:
                     showMyPage();
@@ -189,6 +132,111 @@ public class HotelLounge {
             }
         }
     }
+
+    // -------장바구니 화면------------
+    private void showBasketView() {
+        boolean basketFlag = true;
+        while (basketFlag) {
+            basketOutput.printBasketTitle(customer.getName());
+            if (basketService.returnBasketList().isEmpty()) {
+                showBasketEmptyView();
+                break;
+            }
+            showBasketMainView();
+            int input = inputView.getInputNumber(1, 3);
+            switch (input) {
+                case 1: //예약 진행
+                    basketFlag = showReserveBasketMainView();
+                    break;
+                case 2: //예약 취소
+                    basketFlag = showDeleteBasketMainView();
+                    break;
+                case 3: //메인 메뉴로 돌아가기
+                    basketFlag = false;
+                    break;
+            }
+        }
+    }
+
+    private void showBasketEmptyView() { // 장바구니가 비었을 때의 화면
+        basketOutput.haveEmptyBasket();
+        showFinishBasketView();
+    }
+
+    private void showBasketMainView() { // 장바구니 메인 화면
+        basketOutput.printBasketText();
+        basketOutput.printBasketList(basketService.returnBasketList());
+        basketOutput.checkBasketMenu();
+    }
+
+    private boolean showReserveBasketMainView() { // 장바구니 1번 선택 화면
+        showReserveBasketView();
+        int reserveConfirm = inputView.getInputNumber(1, 2);
+        if (reserveConfirm == 1) {
+            if (basketService.checkMoney(customer)) {
+                showReserveBasketSuccessView();
+            } else {
+                showReserveBasketFailureView();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    private boolean showDeleteBasketMainView() { // 장바구니 2번 선택 화면
+        showDeleteBasketView();
+        int index = inputView.getInputNumber(1,
+            basketService.returnBasketList().size()) - 1;
+        showDeleteBasketConfirmView(index);
+        int cancelConfirm = inputView.getInputNumber(1, 2);
+        if (cancelConfirm == 1) {
+            showDeleteBasketSuccessView(index);
+            return false;
+        }
+        return true;
+    }
+
+    private void showReserveBasketView() { // 장바구니 목록과 총 가격을 보여주는 예약 화면
+        basketOutput.printBasketTitle(customer.getName());
+        basketOutput.printBasketList(basketService.returnBasketList());
+        basketOutput.printBasketPrice(basketService.returnBasketPrice());
+        basketOutput.reserveBasket();
+    }
+
+    private void showReserveBasketSuccessView() { // 장바구니 예약 성공 화면
+        basketService.makeBasketToReservation(customer);
+        basketOutput.successReserveBasket();
+        showFinishBasketView();
+    }
+
+    private void showReserveBasketFailureView() { // 장바구니 예약 실패 화면
+        basketOutput.failureReserveBasket();
+        showFinishBasketView();
+    }
+
+    private void showDeleteBasketView() { // 장바구니 삭제 화면
+        basketOutput.printBasketTitle(customer.getName());
+        basketOutput.deleteBasket();
+        basketOutput.printBasketList(basketService.returnBasketList());
+    }
+
+    private void showDeleteBasketConfirmView(int index) { //장바구니 삭제 확인 화면
+        basketOutput.printBasketTitle(customer.getName());
+        basketOutput.confirmDeleteBasket(
+            basketService.returnRoomToCancel(index));
+    }
+
+    private void showDeleteBasketSuccessView(int index) { //장바구니 삭제 성공 화면
+        basketService.deleteRoomFromBasket(index);
+        basketOutput.successDeleteBasket();
+        showFinishBasketView();
+    }
+
+    private void showFinishBasketView() { // 장바구니 종료 화면
+        basketOutput.waitInform();
+        basketService.waitThread();
+    }
+    // -------장바구니 화면 끝------------
 
     /**
      * 관리자일 경우의 메인 화면 출력
@@ -220,4 +268,6 @@ public class HotelLounge {
 
         return inputNumber == 2; // 취소를 선택할 때
     }
+
+
 }

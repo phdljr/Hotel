@@ -1,7 +1,6 @@
 package data;
 
 import domain.Room;
-import domain.RoomType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +11,6 @@ public class BasketDatabase {
 
     private final List<Room> basket = new ArrayList<>();
     long totalPrice = 0;
-
-    public BasketDatabase() {
-        basket.add(new Room(101, RoomType.MEDIUM, 5400000L, false));
-    }
 
     public List<Room> getBasket() {
         return basket;

@@ -5,11 +5,12 @@ import domain.RoomType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomDatabase {
+public class Hotel {
 
+    private static long money;
     private Map<Integer, Room> roomList = new HashMap<Integer, Room>();
 
-    public RoomDatabase() {
+    public Hotel() {
         roomList.put(1, new Room(101, RoomType.MEDIUM, 5400000L, false));
         roomList.put(2, new Room(102, RoomType.MEDIUM, 5450000L, false));
         roomList.put(3, new Room(103, RoomType.MEDIUM, 4800000L, true));
@@ -24,8 +25,12 @@ public class RoomDatabase {
         roomList.put(12, new Room(401, RoomType.LOVE, 24000000L, true));
     }
 
-    public RoomDatabase(Map<Integer, Room> roomList) {
+    public Hotel(Map<Integer, Room> roomList) {
         this.roomList = roomList;
+    }
+
+    public static void AddMoney(long cost) {
+        money += cost;
     }
 
     public Map<Integer, Room> getRoomList() {

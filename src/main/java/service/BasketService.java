@@ -1,6 +1,7 @@
 package service;
 
 import data.BasketDatabase;
+import data.Hotel;
 import data.ReservationDatabase;
 import domain.Customer;
 import domain.Reservation;
@@ -47,6 +48,7 @@ public class BasketService {
             reservationDatabase.addReservation(reservation);
         }
         customer.subtractMoney(basketDatabase.getTotalPrice());
+        Hotel.AddMoney(basketDatabase.getTotalPrice()); // 호텔에 돈 추가하는 메소드 일단 추가
         basketDatabase.clear();
     }
 
