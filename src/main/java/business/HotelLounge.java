@@ -3,7 +3,9 @@ package business;
 import domain.Customer;
 import domain.CustomerType;
 import io.input.InputView;
+import io.output.BasketOutput;
 import io.output.OutputView;
+import service.BasketService;
 import service.CustomerService;
 
 /**
@@ -13,7 +15,9 @@ public class HotelLounge {
 
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
+    private final BasketOutput basketOutput = new BasketOutput();
     private final CustomerService customerService = new CustomerService();
+    private final BasketService basketService = new BasketService();
 
     private Customer customer;
 
@@ -115,6 +119,57 @@ public class HotelLounge {
             switch (inputNumber) {
                 case 1:
 
+                    break;
+                case 3: //장바구니 화면
+                    boolean basketFlag = true;
+                    while (basketFlag) {
+                        basketOutput.printBasketTitle(customer.getName());
+                        basketOutput.printBasketText();
+                        basketOutput.printBasketList(basketService.returnBasketList());
+                        basketOutput.checkBasketMenu();
+                        int input = inputView.getInputNumber(1, 3);
+                        switch (input) {
+                            case 1: //예약 진행
+                                basketOutput.printBasketTitle(customer.getName());
+                                basketOutput.printBasketList(basketService.returnBasketList());
+                                basketOutput.printBasketPrice(basketService.returnBasketPrice());
+                                basketOutput.reserveBasket();
+                                int reserveConfirm = inputView.getInputNumber(1, 2);
+                                if (reserveConfirm == 1) {
+                                    if (basketService.checkMoney(customer)) {
+                                        basketService.makeBasketToReservation(customer);
+                                        basketOutput.successReserveBasket();
+                                        basketOutput.waitInform();
+                                        basketService.waitThread();
+                                    } else {
+                                        basketOutput.failureReserveBasket();
+                                        basketOutput.waitInform();
+                                        basketService.waitThread();
+                                    }
+                                }
+                                break;
+                            case 2: //예약 취소
+                                basketOutput.printBasketTitle(customer.getName());
+                                basketOutput.deleteBasket();
+                                basketOutput.printBasketList(basketService.returnBasketList());
+                                int index = inputView.getInputNumber(1,
+                                    basketService.returnBasketList().size() - 1);
+                                basketOutput.printBasketTitle(customer.getName());
+                                basketOutput.confirmDeleteBasket(
+                                    basketService.returnRoomToCancel(index));
+                                int cancelConfirm = inputView.getInputNumber(1, 2);
+                                if (cancelConfirm == 1) {
+                                    basketService.deleteRoomFromBasket(index);
+                                    basketOutput.successDeleteBasket();
+                                    basketOutput.waitInform();
+                                    basketService.waitThread();
+                                }
+                                break;
+                            case 3: //메인 메뉴로 돌아가기
+                                basketFlag = false;
+                                break;
+                        }
+                    }
                     break;
                 case 4:
                     showMyPage();

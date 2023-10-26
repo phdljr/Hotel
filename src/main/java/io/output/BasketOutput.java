@@ -24,7 +24,7 @@ public class BasketOutput {
         System.out.println();
         for (int i = 0; i < basket.size(); i++) {
             Room room = basket.get(i);
-            System.out.printf("%d. %s | %s | W %d", i + 1, room.getRoomName(), room.getRoomType(),
+            System.out.printf("%d. %s | %s | W %d", i + 1, room.getNumber(), room.getRoomType(),
                 room.getCost());
         }
         System.out.println();
@@ -52,7 +52,7 @@ public class BasketOutput {
         System.out.println("해당 객실을 예약 목록에서 제외하시겠습니까?");
         System.out.println();
         System.out.println(
-            "\"- " + room.getRoomName() + " | " + room.getRoomType() + " | W " + room.getCost()
+            "\"- " + room.getNumber() + " | " + room.getRoomType() + " | W " + room.getCost()
                 + "\"");
         System.out.println();
         System.out.println("1. 확인\t2. 취소");
@@ -71,6 +71,10 @@ public class BasketOutput {
     public void successDeleteBasket() { // 2. 예약 제외 완료 문구
         System.out.println("해당 객실이 예약 목록에서 제외되었습니다.");
         System.out.println();
+    }
+
+    public void waitInform() {
+        System.out.println("3초 뒤에 메인 화면으로 이동합니다.");
     }
 
 }

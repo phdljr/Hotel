@@ -12,86 +12,24 @@ import java.util.UUID;
 
 public class BasketService {
 
-    private final BasketDatabase basketDatabase;
-    private final ReservationDatabase reservationDatabase;
-    private final BasketOutput basketOutput;
-    private final Customer customer;
+    private final BasketDatabase basketDatabase = new BasketDatabase();
+    private final ReservationDatabase reservationDatabase = new ReservationDatabase();
+    private final BasketOutput basketOutput = new BasketOutput();
 
-    public BasketService(BasketDatabase basketDatabase, ReservationDatabase reservationDatabase,
-        BasketOutput basketOutput, Customer customer) {
-        this.basketDatabase = basketDatabase;
-        this.reservationDatabase = reservationDatabase;
-        this.basketOutput = basketOutput;
-        this.customer = customer;
+
+    public List<Room> returnBasketList() {
+        List<Room> basket = basketDatabase.getBasket();
+        return basket;
     }
 
-    public void printInitView() {
-        String customerName = customer.getName();
-        List<Room> basket = basketDatabase.getBasket();
-        basketOutput.printBasketTitle(customerName);
-        basketOutput.printBasketText();
-        basketOutput.printBasketList(basket);
-        basketOutput.checkBasketMenu();
-    }
-
-    public void printReserveView() {
-        String customerName = customer.getName();
-        List<Room> basket = basketDatabase.getBasket();
+    public long returnBasketPrice() {
         long totalPrice = basketDatabase.getTotalPrice();
-        basketOutput.printBasketTitle(customerName);
-        basketOutput.printBasketList(basket);
-        basketOutput.printBasketPrice(totalPrice);
-        basketOutput.reserveBasket();
+        return totalPrice;
     }
 
-    public void printResultOfReserveView() {
-        //예약 가능한지 확인
-        if (checkMoney(customer)) {
-            basketOutput.successReserveBasket();
-        } else {
-            basketOutput.failureReserveBasket();
-        }
-    }
-
-    public void cancelReserveView() {
-        String customerName = customer.getName();
-        List<Room> basket = basketDatabase.getBasket();
-        basketOutput.printBasketTitle(customerName);
-        basketOutput.deleteBasket();
-        basketOutput.printBasketList(basket);
-    }
-
-    public void confirmCancelView(int index) {
-        String customerName = customer.getName();
+    public Room returnRoomToCancel(int index) {
         Room chosenRoom = basketDatabase.getRoom(index);
-        basketOutput.printBasketTitle(customerName);
-        basketOutput.confirmDeleteBasket(chosenRoom);
-    }
-
-    public void successCancelView() {
-        String customerName = customer.getName();
-        basketOutput.printBasketTitle(customerName);
-        basketOutput.successDeleteBasket();
-    }
-
-    public void printBasketTitle() {
-        String customerName = customer.getName();
-        basketOutput.printBasketTitle(customerName);
-    }
-
-    public void printBasketList() {
-        List<Room> basket = basketDatabase.getBasket();
-        basketOutput.printBasketList(basket);
-    }
-
-    public void printBasketPrice() {
-        long totalPrice = basketDatabase.getTotalPrice();
-        basketOutput.printBasketPrice(totalPrice);
-    }
-
-    public void confirmDeleteBasket(int index) {
-        Room chosenRoom = basketDatabase.getRoom(index);
-        basketOutput.confirmDeleteBasket(chosenRoom);
+        return chosenRoom;
     }
 
     public boolean checkMoney(Customer customer) { // 돈이 충분한지 판단
@@ -104,7 +42,7 @@ public class BasketService {
 
         for (Room room : basketDatabase.getBasket()) {
             String uuid = UUID.randomUUID().toString();
-            Reservation reservation = new Reservation(uuid, room.getRoomId(), customer.getId(),
+            Reservation reservation = new Reservation(uuid, room.getNumber(), customer.getId(),
                 datetime);
             reservationDatabase.addReservation(reservation);
         }
@@ -112,9 +50,16 @@ public class BasketService {
         basketDatabase.clear();
     }
 
-    public void successReserveBasket() {
-        makeBasketToReservation(customer);
-        basketOutput.successReserveBasket();
+    public void deleteRoomFromBasket(int index) {
+        basketDatabase.removeRoom(index);
+    }
+
+    public void waitThread() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

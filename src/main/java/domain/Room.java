@@ -1,26 +1,38 @@
 package domain;
 
 public class Room {
-    private int roomId;
-    private String roomName;
+
+    private int number;
     private RoomType roomType;
     private long cost;
-    private String customerId;
+    private boolean reserved;
 
-    public int getRoomId(){
-        return roomId;
+    public Room(int number, RoomType roomType, long cost, boolean reserved) {
+        this.number = number;
+        this.roomType = roomType;
+        this.cost = cost;
+        this.reserved = reserved;
     }
 
-    public String getRoomName(){
-        return roomName;
+    public int getNumber() {
+        return number;
     }
 
-    public RoomType getRoomType(){
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public long getCost(){
+    public long getCost() {
         return cost;
+    }
+
+    public boolean isReserved() {
+        if (reserved == true) {
+            String reserved = "예약가능";
+        } else {
+
+        }
+        return reserved;
     }
 
 
