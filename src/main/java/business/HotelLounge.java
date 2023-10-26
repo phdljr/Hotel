@@ -125,6 +125,12 @@ public class HotelLounge {
                     while (basketFlag) {
                         basketOutput.printBasketTitle(customer.getName());
                         basketOutput.printBasketText();
+                        if (basketService.returnBasketList().isEmpty()) {
+                            basketOutput.haveEmptyBasket();
+                            basketOutput.waitInform();
+                            basketService.waitThread();
+                            break;
+                        }
                         basketOutput.printBasketList(basketService.returnBasketList());
                         basketOutput.checkBasketMenu();
                         int input = inputView.getInputNumber(1, 3);
@@ -141,10 +147,12 @@ public class HotelLounge {
                                         basketOutput.successReserveBasket();
                                         basketOutput.waitInform();
                                         basketService.waitThread();
+                                        basketFlag = false;
                                     } else {
                                         basketOutput.failureReserveBasket();
                                         basketOutput.waitInform();
                                         basketService.waitThread();
+                                        basketFlag = false;
                                     }
                                 }
                                 break;
@@ -153,7 +161,7 @@ public class HotelLounge {
                                 basketOutput.deleteBasket();
                                 basketOutput.printBasketList(basketService.returnBasketList());
                                 int index = inputView.getInputNumber(1,
-                                    basketService.returnBasketList().size() - 1);
+                                    basketService.returnBasketList().size()) - 1;
                                 basketOutput.printBasketTitle(customer.getName());
                                 basketOutput.confirmDeleteBasket(
                                     basketService.returnRoomToCancel(index));
@@ -163,6 +171,7 @@ public class HotelLounge {
                                     basketOutput.successDeleteBasket();
                                     basketOutput.waitInform();
                                     basketService.waitThread();
+                                    basketFlag = false;
                                 }
                                 break;
                             case 3: //메인 메뉴로 돌아가기
