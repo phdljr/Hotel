@@ -152,15 +152,12 @@ public class HotelLounge {
             return;
         }
 
-        while (true) {
-            String inputReservationUuid = inputView.getReservationUuid();
-            if (reservationMap.containsKey(inputReservationUuid)) {
-                showCheckCancelReservationView(reservationMap, inputReservationUuid);
-                break;
-            }
-
-            reservationOutput.printNotFoundReservation();
+        String inputReservationUuid = inputView.getReservationUuid();
+        if (reservationMap.containsKey(inputReservationUuid)) {
+            showCheckCancelReservationView(reservationMap, inputReservationUuid);
         }
+
+        reservationOutput.printNotFoundReservation();
     }
 
     private void showCheckCancelReservationView(

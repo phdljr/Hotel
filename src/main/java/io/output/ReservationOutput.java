@@ -13,7 +13,7 @@ public class ReservationOutput {
     private final String LIST_EMPTY = "현재 확정된 예약이 없습니다. 메인 화면으로 이동합니다.";
     private final String RESERVATION_NUMBER = "예약번호: ";
     private final String CHECK_CANCEL_RESERVATION = "예약을 취소하시겠습니까?\n1. 확인\t2. 취소";
-    private final String NOT_FOUND_RESERVATION = "입력하신 예약 번호에 맞는 예약이 없습니다. 다시 입력해주세요.";
+    private final String NOT_FOUND_RESERVATION = "입력하신 예약 번호에 맞는 예약이 없습니다. 메인 화면으로 이동합니다.";
     private final String COMPLETE_CANCEL_RESERVATION = "예약이 성공적으로 취소되었습니다.";
     private final String RESERVATION_MAINTAINED = "취소를 선택하셨습니다. 예약은 취소되지 않습니다.";
 
