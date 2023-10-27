@@ -3,6 +3,7 @@ package domain;
 import java.time.LocalDateTime;
 
 public class Reservation {
+
     private String uuid;
     private Room room;
     private Customer customer;
@@ -23,7 +24,7 @@ public class Reservation {
         return room;
     }
 
-    public Customer getCustomerId() {
+    public Customer getCustomer() {
         return customer;
     }
 
