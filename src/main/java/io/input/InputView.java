@@ -87,7 +87,7 @@ public class InputView {
             try {
                 String input = br.readLine();
 
-                if (!Pattern.matches(REGEX_UUID, input)) {
+                if (!"0".equals(input) && !Pattern.matches(REGEX_UUID, input)) {
                     throw new IllegalArgumentException();
                 }
 

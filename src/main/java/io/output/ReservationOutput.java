@@ -10,6 +10,7 @@ public class ReservationOutput {
     private final String TITLE_SUFFIX = "님 ]\n";
 
     private final String SELECT_CANCEL = "\n취소하실 예약 번호를 입력해주세요: (예약번호 입력 후 엔터)";
+    private final String ZERO_MESSAGE = "메인 화면으로 이동하시려면 0을 눌러주세요.";
     private final String LIST_EMPTY = "현재 확정된 예약이 없습니다. 메인 화면으로 이동합니다.";
     private final String RESERVATION_NUMBER = "예약번호: ";
     private final String CHECK_CANCEL_RESERVATION = "예약을 취소하시겠습니까?\n1. 확인\t2. 취소";
@@ -30,6 +31,7 @@ public class ReservationOutput {
                     + reservation.getRoom().getCost() + TAB + reservation.getUuid());
         });
         System.out.println(SELECT_CANCEL);
+        System.out.println(ZERO_MESSAGE);
         return true;
     }
 

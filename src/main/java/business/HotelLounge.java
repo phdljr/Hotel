@@ -7,7 +7,6 @@ import io.input.InputView;
 import io.output.BasketOutput;
 import io.output.OutputView;
 import io.output.ReservationOutput;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import service.BasketService;
@@ -149,11 +148,15 @@ public class HotelLounge {
             = reservationService.getReservationMap(customer.getId());
 
         if (!reservationOutput.printCancelReservationView(
-            new ArrayList<>(reservationMap.values()), customer.getName())) {
+            reservationMap.values().stream().toList(), customer.getName())) {
             return;
         }
 
         String inputReservationUuid = inputView.getReservationUuid();
+        if ("0".equals(inputReservationUuid)) {
+            return;
+        }
+
         if (reservationMap.containsKey(inputReservationUuid)) {
             showCheckCancelReservationView(reservationMap, inputReservationUuid);
         } else {
