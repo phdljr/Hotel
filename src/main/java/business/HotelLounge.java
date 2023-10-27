@@ -2,11 +2,16 @@ package business;
 
 import domain.Customer;
 import domain.CustomerType;
+import domain.Reservation;
 import io.input.InputView;
 import io.output.BasketOutput;
 import io.output.OutputView;
+import io.output.ReservationOutput;
+import java.util.ArrayList;
+import java.util.Map;
 import service.BasketService;
 import service.CustomerService;
+import service.ReservationService;
 
 /**
  * 서비스 클래스 또는 InputView(사용자로부터의 입력)로부터 데이터를 요청받아서 OutputView 클래스로 보내주는 역할
@@ -18,6 +23,8 @@ public class HotelLounge {
     private final BasketOutput basketOutput = new BasketOutput();
     private final CustomerService customerService = new CustomerService();
     private final BasketService basketService = new BasketService();
+    private final ReservationService reservationService = new ReservationService();
+    private final ReservationOutput reservationOutput = new ReservationOutput();
 
     private Customer customer;
 
@@ -120,6 +127,9 @@ public class HotelLounge {
                 case 1:
 
                     break;
+                case 2:
+                    showCancelReservationView();
+                    break;
                 case 3: //장바구니 화면
                     showBasketView();
                     break;
@@ -130,6 +140,38 @@ public class HotelLounge {
                     flag = showLogoutView();
                     break;
             }
+        }
+    }
+
+    private void showCancelReservationView() {
+        Map<String, Reservation> reservationMap
+            = reservationService.getReservationMap(customer.getId());
+
+        if (!reservationOutput.printCancelReservationView(
+            new ArrayList<>(reservationMap.values()), customer.getName())) {
+            return;
+        }
+
+        String inputReservationUuid = inputView.getReservationUuid();
+        if (reservationMap.containsKey(inputReservationUuid)) {
+            showCheckCancelReservationView(reservationMap, inputReservationUuid);
+        } else {
+            reservationOutput.printNotFoundReservation();
+        }
+    }
+
+    private void showCheckCancelReservationView(
+        Map<String, Reservation> reservationMap, String inputReservationUuid) {
+        reservationOutput.printCheckCancelReservation(
+            reservationMap.get(inputReservationUuid), customer.getName());
+
+        int pick = inputView.getInputNumber(1, 2);
+        if (pick == 1) {
+            reservationService.removeReservation(inputReservationUuid);
+            reservationOutput.printCompleteCancelReservation(customer.getName());
+            waitForThreeSec();
+        } else {
+            reservationOutput.printReservationMaintained();
         }
     }
 
