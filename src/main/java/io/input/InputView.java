@@ -3,6 +3,7 @@ package io.input;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
@@ -23,7 +24,7 @@ public class InputView {
                 }
 
                 return inputNumber;
-            } catch (IllegalArgumentException | IOException e) {
+            } catch (NoSuchElementException | IllegalArgumentException | IOException e) {
                 System.out.println("입력이 잘못되었습니다.");
             }
         }
@@ -40,7 +41,7 @@ public class InputView {
                 st = new StringTokenizer(br.readLine());
 
                 return Long.parseLong(st.nextToken());
-            } catch (IllegalArgumentException | IOException e) {
+            } catch (NoSuchElementException | IllegalArgumentException | IOException e) {
                 System.out.println("입력이 잘못되었습니다.");
             }
         }
@@ -55,7 +56,7 @@ public class InputView {
         while (true) {
             try {
                 return br.readLine();
-            } catch (IOException e) {
+            } catch (NoSuchElementException | IOException e) {
                 System.out.println("입력이 잘못되었습니다.");
             }
         }
