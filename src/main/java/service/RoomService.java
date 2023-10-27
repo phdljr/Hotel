@@ -11,7 +11,7 @@ public class RoomService {
 
     private final Hotel hotel = new Hotel();
 
-    public Map<Integer, Room> getRooms() {
+    public Map<Integer, Room> getRoomList() {
         return hotel.getRoomList();
     }
 }

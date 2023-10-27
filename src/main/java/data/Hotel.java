@@ -22,7 +22,7 @@ public class Hotel {
         roomList.put(9, new Room(303, RoomType.SPECIAL, 37000000L, false));
         roomList.put(10, new Room(401, RoomType.LOVE, 20000000L, true));
         roomList.put(11, new Room(401, RoomType.SPECIAL, 30000000L, true));
-        roomList.put(12, new Room(401, RoomType.LOVE, 24000000L, true));
+        roomList.put(12, new Room(401, RoomType.LOVE, 24000000L, false));
     }
 
     public Hotel(Map<Integer, Room> roomList) {

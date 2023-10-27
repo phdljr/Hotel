@@ -48,6 +48,10 @@ public class BasketService {
         basketDatabase.clear();
     }
 
+    public void addRoom(Room room) {
+        basketDatabase.addRoom(room);
+    }
+
     public void deleteRoomFromBasket(int index) {
         basketDatabase.removeRoom(index);
     }

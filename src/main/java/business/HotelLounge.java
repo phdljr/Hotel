@@ -3,6 +3,7 @@ package business;
 import domain.Customer;
 import domain.CustomerType;
 import domain.Reservation;
+import domain.Room;
 import io.input.InputView;
 import io.output.BasketOutput;
 import io.output.OutputView;
@@ -12,6 +13,7 @@ import java.util.Map;
 import service.BasketService;
 import service.CustomerService;
 import service.ReservationService;
+import service.RoomService;
 
 /**
  * 서비스 클래스 또는 InputView(사용자로부터의 입력)로부터 데이터를 요청받아서 OutputView 클래스로 보내주는 역할
@@ -25,8 +27,26 @@ public class HotelLounge {
     private final BasketService basketService = new BasketService();
     private final ReservationService reservationService = new ReservationService();
     private final ReservationOutput reservationOutput = new ReservationOutput();
-
+    private final RoomService roomService = new RoomService();
     private Customer customer;
+
+    //3초 대기를 위한 스레드 sleep
+    private void threeSecHold() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //1초 대기를 위한 스레드 sleep
+    private void oneSecHold() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void start() {
         while (true) {
@@ -124,7 +144,8 @@ public class HotelLounge {
             outputView.printCustomerMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 5);
             switch (inputNumber) {
-                case 1:
+                case 1: //객실선택, 장바구니에 담기
+                    showSelectRoomView();
                     break;
                 case 2:
                     showCancelReservationView();
@@ -252,7 +273,61 @@ public class HotelLounge {
             e.printStackTrace();
         }
     }
+
     // -------장바구니 화면 끝------------
+    // ------- 준 예약 (객실 장바구니에 담기) -------시작
+    private void showSelectRoomView() {
+        Map<Integer, Room> roomList = roomService.getRoomList();
+        int roomLength = roomList.size();
+
+        outputView.printSelectRoomView(customer, roomList);
+
+        int inputNumber = inputView.getInputNumber(0, roomLength);
+        Room selectRoom = roomList.get(inputNumber);
+        if (inputNumber == 0) {
+            return;
+        } else {
+            if (selectRoom.isReserved()) {
+                showAlreadyReservedRoomView();//"이미 예약됬습니다."
+                oneSecHold();//1초 대기
+                showSelectRoomView();//선택화면 다시 출력
+            } else {
+                showCheckRoomView(selectRoom); //확인 후 장바구니에 담을지 선택
+            }
+        }
+    }
+
+    //이미 예약된 객실이라고 알리는 화면
+    private void showAlreadyReservedRoomView() {
+        outputView.printAlreadyReservedRoomView();
+    }
+
+    //선택한 객실을 예약할 것인지에 대한 로직 취소할 시, 메인 화면으로 이동
+    private void showCheckRoomView(Room selectRoom) {
+        outputView.printRoomInfo(selectRoom); //선택한 객실 확인 메세지
+
+        int inputNumber = inputView.getInputNumber(1, 2);
+        if (inputNumber == 1) {
+            // 확인
+            basketService.addRoom(selectRoom); // 장바구니로 선택된 객실을 옮기는 메서드
+            showConfirmedCheckedRoomView(); // "성공적으로 장바구니에 담겼습니다."
+            threeSecHold();  // 3초 sleep
+        } else {
+            // 취소
+            showCancelReserveRoomView(); // "취소하였습니다. 메인화면으로 돌아갑니다."
+        }
+    }
+
+    //객실 선택 확인 완료 화면
+    private void showConfirmedCheckedRoomView() {
+        outputView.printConfirmedCheckedRoomView();
+    }
+
+    //객실 선택 확인 취소 화면
+    private void showCancelReserveRoomView() {
+        outputView.printCancelReserveRoomView();
+    }
+    // ------- 준 예약 끝(객실 장바구니에 담기) -------끝
 
     /**
      * 관리자일 경우의 메인 화면 출력
