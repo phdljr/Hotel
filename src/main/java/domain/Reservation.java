@@ -4,27 +4,27 @@ import java.time.LocalDateTime;
 
 public class Reservation {
     private String uuid;
-    private int roomId;
-    private String customerId;
+    private Room room;
+    private Customer customer;
     private LocalDateTime dateTime;
 
-    public Reservation(String uuid, int roomId, String customerId,LocalDateTime dateTime){
+    public Reservation(String uuid, Room room, Customer customer, LocalDateTime dateTime) {
         this.uuid = uuid;
-        this.roomId = roomId;
-        this.customerId = customerId;
+        this.room = room;
+        this.customer = customer;
         this.dateTime = dateTime;
     }
 
-    public String getUuid(){
+    public String getUuid() {
         return uuid;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public Customer getCustomerId() {
+        return customer;
     }
 
     public LocalDateTime getDateTime() {
