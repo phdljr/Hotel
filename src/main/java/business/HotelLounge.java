@@ -268,7 +268,7 @@ public class HotelLounge {
                     showReserveAllRoom();
                     break;
                 case 2:
-                    showLogoutView();
+                    flag = showLogoutView();
                     break;
             }
         }
@@ -291,6 +291,4 @@ public class HotelLounge {
 
         return inputNumber == 2; // 취소를 선택할 때
     }
-
-
 }
