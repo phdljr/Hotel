@@ -155,20 +155,26 @@ public class HotelLounge {
         while (true) {
             String inputReservationUuid = inputView.getReservationUuid();
             if (reservationMap.containsKey(inputReservationUuid)) {
-                reservationOutput.printCheckCancelReservation(
-                    reservationMap.get(inputReservationUuid), customer.getName());
-                int pick = inputView.getInputNumber(1, 2);
-                if (pick == 1) {
-                    reservationService.removeReservation(inputReservationUuid);
-                    reservationOutput.printCompleteCancelReservation(customer.getName());
-                    waitForThreeSec();
-                } else {
-                    reservationOutput.printReservationMaintained();
-                }
+                showCheckCancelReservationView(reservationMap, inputReservationUuid);
                 break;
             }
 
             reservationOutput.printNotFoundReservation();
+        }
+    }
+
+    private void showCheckCancelReservationView(
+        Map<String, Reservation> reservationMap, String inputReservationUuid) {
+        reservationOutput.printCheckCancelReservation(
+            reservationMap.get(inputReservationUuid), customer.getName());
+
+        int pick = inputView.getInputNumber(1, 2);
+        if (pick == 1) {
+            reservationService.removeReservation(inputReservationUuid);
+            reservationOutput.printCompleteCancelReservation(customer.getName());
+            waitForThreeSec();
+        } else {
+            reservationOutput.printReservationMaintained();
         }
     }
 
