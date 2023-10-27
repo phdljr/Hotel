@@ -8,6 +8,7 @@ import io.output.BasketOutput;
 import io.output.OutputView;
 import io.output.ReservationOutput;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import service.BasketService;
 import service.CustomerService;
@@ -298,13 +299,19 @@ public class HotelLounge {
             int inputNumber = inputView.getInputNumber(1, 2);
             switch (inputNumber) {
                 case 1:
-
+                    showReserveAllRoom();
                     break;
                 case 2:
                     showLogoutView();
                     break;
             }
         }
+    }
+
+    private void showReserveAllRoom() {
+        List<Reservation> reservations = reservationService.getAllReservation();
+        outputView.printReserveAllRoom(customer, reservations);
+        inputView.getInputNumber(1, 1);
     }
 
     private void showMyPage() {

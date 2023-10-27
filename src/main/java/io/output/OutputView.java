@@ -1,6 +1,8 @@
 package io.output;
 
 import domain.Customer;
+import domain.Reservation;
+import java.util.List;
 
 public class OutputView {
 
@@ -84,6 +86,24 @@ public class OutputView {
         System.out.println();
         System.out.println("1. 모든 예약 목록 조회");
         System.out.println("2. 로그아웃");
+    }
+
+    public void printReserveAllRoom(Customer customer, List<Reservation> reservations) {
+        System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
+        System.out.println("현재 예약된 모든 객실을 조회합니다.");
+        System.out.println();
+        if (reservations.isEmpty()) {
+            System.out.println("- 예약된 객실이 없습니다.");
+        } else {
+            for (Reservation reservation : reservations) {
+                int number = reservation.getRoom().getNumber();
+                String uuid = reservation.getUuid();
+                String customerId = reservation.getCustomer().getId();
+                System.out.printf("- %d호 | W %s | %s\n", number, uuid, customerId);
+            }
+        }
+        System.out.println();
+        System.out.println("1. 돌아가기");
     }
 
     public void printLogoutView(Customer customer) {

@@ -7,12 +7,13 @@ import domain.Room;
 import domain.RoomType;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ReservationDatabase {
 
-    private Map<String, Reservation> reservationMap = new HashMap<>();
+    private final Map<String, Reservation> reservationMap = new HashMap<>();
 
     public ReservationDatabase() {
         // TODO DELETE
@@ -46,6 +47,10 @@ public class ReservationDatabase {
         return reservationMap.entrySet().stream()
             .filter(entry -> entry.getValue().getCustomer().getId().equals(customerId))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public List<Reservation> getAllReservation() {
+        return reservationMap.values().stream().toList();
     }
 
     public void removeReservation(String uuid) {
