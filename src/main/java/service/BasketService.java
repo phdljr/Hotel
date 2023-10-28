@@ -12,8 +12,8 @@ import java.util.UUID;
 
 public class BasketService {
 
-    private final BasketDatabase basketDatabase = new BasketDatabase();
-    private final ReservationDatabase reservationDatabase = new ReservationDatabase();
+    private final BasketDatabase basketDatabase = BasketDatabase.getBasketDatabase();
+    private final ReservationDatabase reservationDatabase = ReservationDatabase.getReservationDatabase();
 
     public List<Room> returnBasketList() {
         List<Room> basket = basketDatabase.getBasket();
@@ -48,7 +48,13 @@ public class BasketService {
         basketDatabase.clear();
     }
 
+    public void addRoom(Room room) {
+        basketDatabase.addRoom(room);
+        room.setReserved(true);
+    }
+
     public void deleteRoomFromBasket(int index) {
+        basketDatabase.getRoom(index).setReserved(false);
         basketDatabase.removeRoom(index);
     }
 

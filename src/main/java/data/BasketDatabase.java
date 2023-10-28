@@ -9,8 +9,16 @@ import java.util.List;
  */
 public class BasketDatabase {
 
+    private static BasketDatabase basketDatabase = new BasketDatabase();
     private final List<Room> basket = new ArrayList<>();
     long totalPrice = 0;
+
+    private BasketDatabase() {
+    }
+
+    public static BasketDatabase getBasketDatabase() {
+        return basketDatabase;
+    }
 
     public List<Room> getBasket() {
         return basket;

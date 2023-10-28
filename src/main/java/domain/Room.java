@@ -27,13 +27,11 @@ public class Room {
     }
 
     public boolean isReserved() {
-        if (reserved == true) {
-            String reserved = "예약가능";
-        } else {
-
-        }
         return reserved;
     }
 
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
 
 }
