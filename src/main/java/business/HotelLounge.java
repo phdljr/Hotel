@@ -183,7 +183,8 @@ public class HotelLounge {
 
         int pick = inputView.getInputNumber(1, 2);
         if (pick == 1) {
-            reservationService.removeReservation(inputReservationUuid);
+            reservationService.removeReservation(
+                reservationMap.get(inputReservationUuid), customer);
             reservationOutput.printCompleteCancelReservation(customer.getName());
             waitForThreeSec();
         } else {
