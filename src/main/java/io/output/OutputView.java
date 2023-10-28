@@ -161,7 +161,6 @@ public class OutputView {
         System.out.println("--------------------------");
         System.out.println("선택하신 객실이 장바구니로 이동되었습니다.");
         System.out.println("'객실예약대기목록'에서 결제해주세요. :)");
-        System.out.println("3초 후 메인화면으로 돌아갑니다.");
         System.out.println(); // 줄 띄움용
     }
 

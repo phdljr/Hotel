@@ -30,15 +30,6 @@ public class HotelLounge {
     private final RoomService roomService = new RoomService();
     private Customer customer;
 
-    //3초 대기를 위한 스레드 sleep
-    private void threeSecHold() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     //1초 대기를 위한 스레드 sleep
     private void oneSecHold() {
         try {
@@ -311,7 +302,7 @@ public class HotelLounge {
             // 확인
             basketService.addRoom(selectRoom); // 장바구니로 선택된 객실을 옮기는 메서드
             showConfirmedCheckedRoomView(); // "성공적으로 장바구니에 담겼습니다."
-            threeSecHold();  // 3초 sleep
+            waitForThreeSec();  // 3초 sleep
         } else {
             // 취소
             showCancelReserveRoomView(); // "취소하였습니다. 메인화면으로 돌아갑니다."
