@@ -1,9 +1,9 @@
 package io.output;
 
+import data.Hotel;
 import domain.Customer;
 import domain.Reservation;
 import domain.Room;
-import domain.RoomType;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
@@ -77,8 +77,9 @@ public class OutputView {
                 String uuid = reservation.getUuid();
                 String dateTime = reservation.getDateTime()
                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                // TODO 방 크기 출력
-                System.out.printf("- %d호 | W %d | %s | %s\n", number, cost, dateTime, uuid);
+                String roomType = reservation.getRoom().getRoomType().getType();
+                System.out.printf("- %d호 | %s | W %d | %s | %s\n", number, roomType, cost, dateTime,
+                    uuid);
             }
         }
         System.out.println();
@@ -108,6 +109,10 @@ public class OutputView {
         System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
         System.out.println("모든 예약 내역을 조회합니다.");
         System.out.println();
+        System.out.println("[ 호텔 총 수입 ]");
+        System.out.printf("- W %d\n", Hotel.getMoney());
+        System.out.println();
+        System.out.println("[ 객실 예약 목록 ]");
         if (reservations.isEmpty()) {
             System.out.println("- 예약된 객실이 없습니다.");
         } else {
@@ -146,7 +151,7 @@ public class OutputView {
         while (iter.hasNext()) {
             Integer key = iter.next();
             int roomNum = roomList.get(key).getNumber();
-            RoomType roomType = roomList.get(key).getRoomType();
+            String roomType = roomList.get(key).getRoomType().getType();
             long roomCost = roomList.get(key).getCost();
             String roomStatus;
             if (roomList.get(key).isReserved()) {
@@ -155,7 +160,7 @@ public class OutputView {
                 roomStatus = "예약가능";
             }
             System.out.println(
-                key + ". " + roomNum + "호 | " + roomType + " | W" + roomCost + " | " + roomStatus);
+                key + ". " + roomNum + "호 | " + roomType + " | W " + roomCost + " | " + roomStatus);
         }
         System.out.println("0. 취소");
     }
@@ -169,7 +174,7 @@ public class OutputView {
     public void printRoomInfo(Room selectRoom) {
         System.out.println("--------------------------");
         System.out.println(
-            selectRoom.getNumber() + "호 | " + selectRoom.getRoomType() + " | W"
+            selectRoom.getNumber() + "호 | " + selectRoom.getRoomType().getType() + " | W"
                 + selectRoom.getCost() + " | 이 선택되었습니다.");
         System.out.println("선택하신 객실을 장바구니에 담으시겠습니까?");
         System.out.println("1.확인        2.취소");

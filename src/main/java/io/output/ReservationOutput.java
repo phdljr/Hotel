@@ -45,6 +45,7 @@ public class ReservationOutput {
             .forEach(reservation -> {
                 System.out.println(
                     reservation.getRoom().getNumber() + TAB + reservation.getRoom().getRoomType()
+                        .getType()
                         + TAB
                         + reservation.getRoom().getCost() + TAB + reservation.getUuid());
             });
@@ -57,7 +58,8 @@ public class ReservationOutput {
         System.out.println(TITLE_PREFIX + name + TITLE_SUFFIX);
         System.out.println(
             RESERVATION_NUMBER + reservation.getUuid() + "(\"" + reservation.getRoom().getNumber()
-                + TAB + reservation.getRoom().getRoomType() + TAB + reservation.getRoom().getCost()
+                + TAB + reservation.getRoom().getRoomType().getType() + TAB + reservation.getRoom()
+                .getCost()
                 + "\")\n");
         System.out.println(CHECK_CANCEL_RESERVATION);
     }

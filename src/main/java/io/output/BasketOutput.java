@@ -28,7 +28,8 @@ public class BasketOutput {
     public void printBasketList(List<Room> basket) { // 장바구니 목록 출력
         for (int i = 0; i < basket.size(); i++) {
             Room room = basket.get(i);
-            System.out.printf("%d. %s | %s | W %d\n", i + 1, room.getNumber(), room.getRoomType(),
+            System.out.printf("%d. %s | %s | W %d\n", i + 1, room.getNumber(),
+                room.getRoomType().getType(),
                 room.getCost());
         }
         System.out.println();
@@ -56,7 +57,8 @@ public class BasketOutput {
         System.out.println("해당 객실을 예약 목록에서 제외하시겠습니까?");
         System.out.println();
         System.out.println(
-            "\" " + room.getNumber() + " | " + room.getRoomType() + " | W " + room.getCost()
+            "\" " + room.getNumber() + " | " + room.getRoomType().getType() + " | W "
+                + room.getCost()
                 + "\" ");
         System.out.println();
         System.out.println("1. 확인\t2. 취소");
