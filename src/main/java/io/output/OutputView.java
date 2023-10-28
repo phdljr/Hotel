@@ -94,7 +94,7 @@ public class OutputView {
 
     public void printReserveAllRoom(Customer customer, List<Reservation> reservations) {
         System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
-        System.out.println("현재 예약된 모든 객실을 조회합니다.");
+        System.out.println("모든 예약 내역을 조회합니다.");
         System.out.println();
         if (reservations.isEmpty()) {
             System.out.println("- 예약된 객실이 없습니다.");
@@ -136,7 +136,7 @@ public class OutputView {
             RoomType roomType = roomList.get(key).getRoomType();
             long roomCost = roomList.get(key).getCost();
             String roomStatus;
-            if (roomList.get(key).isReserved() == true) {
+            if (roomList.get(key).isReserved()) {
                 roomStatus = "예약완료";
             } else {
                 roomStatus = "예약가능";
