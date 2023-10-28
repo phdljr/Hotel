@@ -103,7 +103,8 @@ public class OutputView {
                 int number = reservation.getRoom().getNumber();
                 String uuid = reservation.getUuid();
                 String customerId = reservation.getCustomer().getId();
-                System.out.printf("- %d호 | %s | %s\n", number, uuid, customerId);
+                String dateTime = reservation.getDateTime().toString();
+                System.out.printf("- %d호 | %s | %s | %s\n", number, uuid, customerId, dateTime);
             }
         }
         System.out.println();
