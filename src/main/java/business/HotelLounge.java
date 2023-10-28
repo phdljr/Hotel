@@ -347,7 +347,9 @@ public class HotelLounge {
     }
 
     private void showMyPage() {
-        outputView.printMyPageView(customer);
+        Map<String, Reservation> reservationMap = reservationService.getReservationMap(
+            customer.getId());
+        outputView.printMyPageView(customer, reservationMap);
         inputView.getInputNumber(1, 1);
     }
 
