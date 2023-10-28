@@ -130,6 +130,7 @@ public class HotelLounge {
      * 일반 손님일 경우의 메인 화면 출력
      */
     private void showCustomerMainView() {
+        roomService.resetReserved(); //시간 체크 후 reserved 변경
         boolean flag = true;
         while (flag) {
             outputView.printCustomerMainView(customer);
@@ -264,8 +265,8 @@ public class HotelLounge {
             e.printStackTrace();
         }
     }
-
     // -------장바구니 화면 끝------------
+
     // ------- 준 예약 (객실 장바구니에 담기) -------시작
     private void showSelectRoomView() {
         Map<Integer, Room> roomList = roomService.getRoomList();

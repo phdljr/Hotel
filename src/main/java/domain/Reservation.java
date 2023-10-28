@@ -1,5 +1,6 @@
 package domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Reservation {
@@ -30,5 +31,11 @@ public class Reservation {
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public boolean isPassed() {
+        LocalDate nowDate = LocalDate.now();
+        LocalDate dateOfReservation = dateTime.toLocalDate();
+        return dateOfReservation.isBefore(nowDate);
     }
 }

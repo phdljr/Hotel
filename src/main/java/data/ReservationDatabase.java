@@ -3,8 +3,6 @@ package data;
 import domain.Customer;
 import domain.CustomerType;
 import domain.Reservation;
-import domain.Room;
-import domain.RoomType;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -13,30 +11,21 @@ import java.util.stream.Collectors;
 
 public class ReservationDatabase {
 
+    private static ReservationDatabase reservationDatabase = new ReservationDatabase();
     private final Map<String, Reservation> reservationMap = new HashMap<>();
+    //Test를 위해 hotel 가져옴
+    private Hotel hotel = Hotel.getHotel();
 
-    public ReservationDatabase() {
-        // TODO DELETE
-        reservationMap.put("550e8400-e29b-41d4-a716-446655440000",
-            new Reservation("550e8400-e29b-41d4-a716-446655440000",
-                new Room(101, RoomType.LARGE, 10L, true),
-                new Customer("test1", "이종렬", "010-1234-5678", 1000000000L, CustomerType.CUSTOMER),
-                LocalDateTime.now()));
-        reservationMap.put("440e8400-e29b-41d4-a716-446655440000",
-            new Reservation("440e8400-e29b-41d4-a716-446655440000",
-                new Room(102, RoomType.SWEET, 20L, true),
-                new Customer("test1", "이종렬", "010-1234-5678", 1000000000L, CustomerType.CUSTOMER),
-                LocalDateTime.now()));
-        reservationMap.put("330e8400-e29b-41d4-a716-446655440000",
-            new Reservation("330e8400-e29b-41d4-a716-446655440000",
-                new Room(103, RoomType.SPECIAL, 40L, true),
-                new Customer("test1", "이종렬", "010-1234-5678", 1000000000L, CustomerType.CUSTOMER),
-                LocalDateTime.now()));
+    private ReservationDatabase() {
         reservationMap.put("220e8400-e29b-41d4-a716-446655440000",
             new Reservation("220e8400-e29b-41d4-a716-446655440000",
-                new Room(104, RoomType.LOVE, 30L, true),
+                hotel.getRoomList().get(1),
                 new Customer("test1", "이종렬", "010-1234-5678", 1000000000L, CustomerType.CUSTOMER),
-                LocalDateTime.now()));
+                LocalDateTime.now().minusDays(2)));
+    }
+
+    public static ReservationDatabase getReservationDatabase() {
+        return reservationDatabase;
     }
 
     public void addReservation(Reservation reservation) {
@@ -54,6 +43,7 @@ public class ReservationDatabase {
     }
 
     public void removeReservation(String uuid) {
+        reservationMap.get(uuid).getRoom().setReserved(false);
         reservationMap.remove(uuid);
     }
 }

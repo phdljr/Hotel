@@ -94,7 +94,7 @@ public class OutputView {
 
     public void printReserveAllRoom(Customer customer, List<Reservation> reservations) {
         System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
-        System.out.println("현재 예약된 모든 객실을 조회합니다.");
+        System.out.println("모든 예약 내역을 조회합니다.");
         System.out.println();
         if (reservations.isEmpty()) {
             System.out.println("- 예약된 객실이 없습니다.");
@@ -103,7 +103,8 @@ public class OutputView {
                 int number = reservation.getRoom().getNumber();
                 String uuid = reservation.getUuid();
                 String customerId = reservation.getCustomer().getId();
-                System.out.printf("- %d호 | W %s | %s\n", number, uuid, customerId);
+                String dateTime = reservation.getDateTime().toString();
+                System.out.printf("- %d호 | %s | %s | %s\n", number, uuid, customerId, dateTime);
             }
         }
         System.out.println();
@@ -135,7 +136,7 @@ public class OutputView {
             RoomType roomType = roomList.get(key).getRoomType();
             long roomCost = roomList.get(key).getCost();
             String roomStatus;
-            if (roomList.get(key).isReserved() == true) {
+            if (roomList.get(key).isReserved()) {
                 roomStatus = "예약완료";
             } else {
                 roomStatus = "예약가능";
@@ -165,7 +166,6 @@ public class OutputView {
         System.out.println("--------------------------");
         System.out.println("선택하신 객실이 장바구니로 이동되었습니다.");
         System.out.println("'객실예약대기목록'에서 결제해주세요. :)");
-        System.out.println(); // 줄 띄움용
     }
 
     public void printCancelReserveRoomView() {
@@ -175,3 +175,4 @@ public class OutputView {
     }
 }
 // ------- 준 예약(객실 장바구니에 담기) -------끝
+

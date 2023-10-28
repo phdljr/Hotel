@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class ReservationService {
 
-    private final ReservationDatabase reservationDatabase = new ReservationDatabase();
+    private final ReservationDatabase reservationDatabase = ReservationDatabase.getReservationDatabase();
 
     public Map<String, Reservation> getReservationMap(String customerId) {
         return reservationDatabase.getReservationMap(customerId);
