@@ -13,6 +13,9 @@ public class BasketDatabase {
     private final List<Room> basket = new ArrayList<>();
     long totalPrice = 0;
 
+    private BasketDatabase() {
+    }
+
     public static BasketDatabase getBasketDatabase() {
         return basketDatabase;
     }
