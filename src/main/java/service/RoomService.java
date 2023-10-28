@@ -4,7 +4,6 @@ package service;
 import data.Hotel;
 import domain.Reservation;
 import domain.Room;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +22,8 @@ public class RoomService {
 
     public void resetReserved() {
         List<Reservation> reservationList = reservationService.getAllReservation();
-        LocalDate nowDate = LocalDate.now();
         for (Reservation reservation : reservationList) {
-            LocalDate dateOfReservation = reservation.getDateTime().toLocalDate();
-            reservation.getRoom().setReserved(!dateOfReservation.isBefore(nowDate));
+            reservation.getRoom().setReserved(!reservation.isPassed());
         }
     }
 }

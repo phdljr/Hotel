@@ -30,15 +30,6 @@ public class HotelLounge {
     private final RoomService roomService = new RoomService();
     private Customer customer;
 
-    //3초 대기를 위한 스레드 sleep
-    private void threeSecHold() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     //1초 대기를 위한 스레드 sleep
     private void oneSecHold() {
         try {
@@ -145,7 +136,7 @@ public class HotelLounge {
             outputView.printCustomerMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 5);
             switch (inputNumber) {
-                case 1:
+                case 1: //객실선택, 장바구니에 담기
                     showSelectRoomView();
                     break;
                 case 2:
@@ -287,15 +278,15 @@ public class HotelLounge {
         Room selectRoom = roomList.get(inputNumber);
         if (inputNumber == 0) {
             return;
-        }
-        if (selectRoom.isReserved()) {
-            showAlreadyReservedRoomView();//"이미 예약됬습니다."
-            oneSecHold();//1초 대기
-            showSelectRoomView();//선택화면 다시 출력
         } else {
-            showCheckRoomView(selectRoom); //확인 후 장바구니에 담을지 선택
+            if (selectRoom.isReserved()) {
+                showAlreadyReservedRoomView();//"이미 예약됬습니다."
+                oneSecHold();//1초 대기
+                showSelectRoomView();//선택화면 다시 출력
+            } else {
+                showCheckRoomView(selectRoom); //확인 후 장바구니에 담을지 선택
+            }
         }
-
     }
 
     //이미 예약된 객실이라고 알리는 화면
@@ -312,7 +303,7 @@ public class HotelLounge {
             // 확인
             basketService.addRoom(selectRoom); // 장바구니로 선택된 객실을 옮기는 메서드
             showConfirmedCheckedRoomView(); // "성공적으로 장바구니에 담겼습니다."
-            threeSecHold();  // 3초 sleep
+            waitForThreeSec();  // 3초 sleep
         } else {
             // 취소
             showCancelReserveRoomView(); // "취소하였습니다. 메인화면으로 돌아갑니다."

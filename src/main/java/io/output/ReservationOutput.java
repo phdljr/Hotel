@@ -26,10 +26,10 @@ public class ReservationOutput {
             return false;
         }
 
-        // 예약 리스트에 있는 리스트 중 room이 true인 것만 취소 가능
+        //datetime을 확인한 후 리스트를 출력
         int flag = 0;
         for (Reservation reservation : reservationList) {
-            if (reservation.getRoom().isReserved()) {
+            if (!reservation.isPassed()) {
                 flag = 1;
                 break;
             }
@@ -41,7 +41,7 @@ public class ReservationOutput {
 
         reservationList.stream()
             .filter(reservation ->
-                reservation.getRoom().isReserved())
+                !reservation.isPassed())
             .forEach(reservation -> {
                 System.out.println(
                     reservation.getRoom().getNumber() + TAB + reservation.getRoom().getRoomType()

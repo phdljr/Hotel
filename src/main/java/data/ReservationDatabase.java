@@ -43,6 +43,7 @@ public class ReservationDatabase {
     }
 
     public void removeReservation(String uuid) {
+        reservationMap.get(uuid).getRoom().setReserved(false);
         reservationMap.remove(uuid);
     }
 }
