@@ -1,6 +1,8 @@
 package service;
 
+import data.Hotel;
 import data.ReservationDatabase;
+import domain.Customer;
 import domain.Reservation;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,9 @@ public class ReservationService {
         return reservationDatabase.getAllReservation();
     }
 
-    public void removeReservation(String uuid) {
-        reservationDatabase.removeReservation(uuid);
+    public void removeReservation(Reservation reservation, Customer customer) {
+        reservationDatabase.removeReservation(reservation.getUuid());
+        Hotel.addMoney(-reservation.getRoom().getCost());
+        customer.subtractMoney(-reservation.getRoom().getCost());
     }
 }
