@@ -3,6 +3,7 @@ package io.output;
 import domain.Customer;
 import domain.Reservation;
 import java.util.List;
+import java.util.Map;
 
 public class OutputView {
 
@@ -53,7 +54,7 @@ public class OutputView {
         }
     }
 
-    public void printMyPageView(Customer customer) {
+    public void printMyPageView(Customer customer, Map<String, Reservation> reservationMap) {
         System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
         System.out.println();
         System.out.printf("ID: %s\n", customer.getId());
@@ -61,10 +62,19 @@ public class OutputView {
         System.out.printf("전화번호: %s\n", customer.getPhoneNumber());
         System.out.printf("소지금: %d\n", customer.getMoney());
         System.out.println();
-        System.out.println("객실 예약 목록");
-        /* TODO
-            객실 예약 목록 출력
-         */
+        System.out.println("[ 객실 예약 목록 ]");
+        System.out.println();
+        if (reservationMap.isEmpty()) {
+            System.out.println("- 예약한 객실이 없습니다.");
+        } else {
+            for (Reservation reservation : reservationMap.values()) {
+                int number = reservation.getRoom().getNumber();
+                long cost = reservation.getRoom().getCost();
+                String uuid = reservation.getUuid();
+                // TODO 방 크기 출력
+                System.out.printf("- %d호 | W %d | %s\n", number, cost, uuid);
+            }
+        }
         System.out.println();
         System.out.println("1. 돌아가기");
     }
@@ -99,6 +109,7 @@ public class OutputView {
                 int number = reservation.getRoom().getNumber();
                 String uuid = reservation.getUuid();
                 String customerId = reservation.getCustomer().getId();
+                // TODO 방 크기 출력
                 System.out.printf("- %d호 | W %s | %s\n", number, uuid, customerId);
             }
         }
