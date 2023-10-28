@@ -135,8 +135,12 @@ public class OutputView {
             int roomNum = roomList.get(key).getNumber();
             RoomType roomType = roomList.get(key).getRoomType();
             long roomCost = roomList.get(key).getCost();
-            String roomStatus = roomList.get(key).isReserved() ? "예약완료" : "예약가능";
-
+            String roomStatus;
+            if (roomList.get(key).isReserved() == true) {
+                roomStatus = "예약완료";
+            } else {
+                roomStatus = "예약가능";
+            }
             System.out.println(
                 key + ". " + roomNum + "호 | " + roomType + " | W" + roomCost + " | " + roomStatus);
         }
