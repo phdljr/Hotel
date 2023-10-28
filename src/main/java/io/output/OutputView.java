@@ -4,6 +4,7 @@ import domain.Customer;
 import domain.Reservation;
 import domain.Room;
 import domain.RoomType;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -74,8 +75,10 @@ public class OutputView {
                 int number = reservation.getRoom().getNumber();
                 long cost = reservation.getRoom().getCost();
                 String uuid = reservation.getUuid();
+                String dateTime = reservation.getDateTime()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 // TODO 방 크기 출력
-                System.out.printf("- %d호 | W %d | %s\n", number, cost, uuid);
+                System.out.printf("- %d호 | W %d | %s | %s\n", number, cost, dateTime, uuid);
             }
         }
         System.out.println();
@@ -112,7 +115,8 @@ public class OutputView {
                 int number = reservation.getRoom().getNumber();
                 String uuid = reservation.getUuid();
                 String customerId = reservation.getCustomer().getId();
-                String dateTime = reservation.getDateTime().toString();
+                String dateTime = reservation.getDateTime()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 System.out.printf("- %d호 | %s | %s | %s\n", number, uuid, customerId, dateTime);
             }
         }
