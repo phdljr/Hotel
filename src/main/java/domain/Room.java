@@ -35,5 +35,8 @@ public class Room {
         return reserved;
     }
 
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
+    }
 
 }
