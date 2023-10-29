@@ -5,6 +5,8 @@ import java.util.List;
 
 public class BasketOutput {
 
+    private OutputView outputView = new OutputView();
+
     public void printBasketTitle(String customerName) { // 장바구니 제목 문구
         System.out.println("[ 뇌정지 호텔 - " + customerName + "님 ]");
     }
@@ -28,8 +30,9 @@ public class BasketOutput {
     public void printBasketList(List<Room> basket) { // 장바구니 목록 출력
         for (int i = 0; i < basket.size(); i++) {
             Room room = basket.get(i);
-            System.out.printf("%d. %s | %s | W %d\n", i + 1, room.getNumber(),
-                room.getRoomType().getType(),
+            System.out.printf(
+                "%d. " + outputView.convert(room.getRoomType().getType(), 8) + " | %d | W %d\n",
+                i + 1, room.getNumber(),
                 room.getCost());
         }
         System.out.println();

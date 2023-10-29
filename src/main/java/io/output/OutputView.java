@@ -11,6 +11,21 @@ import java.util.Map;
 
 public class OutputView {
 
+    private int getKorCnt(String kor) {
+        int cnt = 0;
+        for (int i = 0; i < kor.length(); i++) {
+            if (kor.charAt(i) >= '가' && kor.charAt(i) <= '힣') {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+
+    public String convert(String word, int size) {
+        String formatter = String.format("%%%ds", size - getKorCnt(word));
+        return String.format(formatter, word);
+    }
+
     public void printInitView() {
         System.out.println("[ 뇌정지 호텔 ]");
         System.out.println("1. 로그인");
