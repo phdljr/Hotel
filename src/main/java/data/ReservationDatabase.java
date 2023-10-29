@@ -10,8 +10,6 @@ public class ReservationDatabase {
 
     private static final ReservationDatabase reservationDatabase = new ReservationDatabase();
     private final Map<String, Reservation> reservationMap = new HashMap<>();
-    //Test를 위해 hotel 가져옴
-    private final Hotel hotel = Hotel.getHotel();
 
     private ReservationDatabase() {
 //        reservationMap.put("220e8400-e29b-41d4-a716-446655440000",

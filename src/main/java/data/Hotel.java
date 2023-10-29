@@ -34,7 +34,7 @@ public class Hotel {
         return hotel;
     }
 
-    public static void AddMoney(long cost) {
+    public static void addMoney(long cost) {
         money += cost;
     }
 
