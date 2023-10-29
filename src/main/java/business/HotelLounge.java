@@ -6,8 +6,14 @@ import domain.Reservation;
 import domain.Room;
 import io.input.InputView;
 import io.output.BasketOutput;
+import io.output.EnterOutput;
+import io.output.LoginOutput;
+import io.output.LogoutOutput;
+import io.output.MainOutput;
+import io.output.MyPageOutput;
 import io.output.OutputView;
 import io.output.ReservationOutput;
+import io.output.SignUpOutput;
 import java.util.List;
 import java.util.Map;
 import service.BasketService;
@@ -23,10 +29,17 @@ public class HotelLounge {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
     private final BasketOutput basketOutput = new BasketOutput();
+    private final ReservationOutput reservationOutput = new ReservationOutput();
+    private final EnterOutput enterOutput = new EnterOutput();
+    private final MyPageOutput myPageOutput = new MyPageOutput();
+    private final LoginOutput loginOutput = new LoginOutput();
+    private final LogoutOutput logoutOutput = new LogoutOutput();
+    private final MainOutput mainOutput = new MainOutput();
+    private final SignUpOutput signUpOutput = new SignUpOutput();
+
     private final CustomerService customerService = new CustomerService();
     private final BasketService basketService = new BasketService();
     private final ReservationService reservationService = new ReservationService();
-    private final ReservationOutput reservationOutput = new ReservationOutput();
     private final RoomService roomService = new RoomService();
     private Customer customer;
 
@@ -41,7 +54,7 @@ public class HotelLounge {
 
     public void start() {
         while (true) {
-            outputView.printInitView();
+            enterOutput.printInitView();
             int inputNumber = inputView.getInputNumber(1, 2);
 
             switch (inputNumber) {
@@ -62,14 +75,14 @@ public class HotelLounge {
      * 로그인 화면 출력 이 메소드가 호출되고나서 종료되면, 로그인 된걸로 간주
      */
     private void showLoginView() {
-        outputView.printLoginView();
+        loginOutput.printLoginView();
         while (true) {
             String id = inputView.getInputString();
             if (customerService.contains(id)) {
                 customer = customerService.login(id);
                 return;
             } else {
-                outputView.printWrongInputId();
+                loginOutput.printWrongInputId();
             }
         }
     }
@@ -84,14 +97,14 @@ public class HotelLounge {
         long money = 0L;
 
         int step = 1;
-        outputView.printSignUpTitleView();
+        signUpOutput.printSignUpTitleView();
         while (step != 5) {
-            outputView.printSignUpView(step);
+            signUpOutput.printSignUpView(step);
             switch (step) {
                 case 1:
                     id = inputView.getInputString();
                     if (customerService.contains(id)) {
-                        outputView.printAlreadyExistId();
+                        signUpOutput.printAlreadyExistId();
                         step--;
                     }
                     step++;
@@ -123,7 +136,7 @@ public class HotelLounge {
         } else {
             showAdminMainView();
         }
-        outputView.printLogoutCommentView();
+        logoutOutput.printLogoutCommentView();
     }
 
     /**
@@ -133,7 +146,7 @@ public class HotelLounge {
         roomService.resetReserved(); //시간 체크 후 reserved 변경
         boolean flag = true;
         while (flag) {
-            outputView.printCustomerMainView(customer);
+            mainOutput.printCustomerMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 5);
             switch (inputNumber) {
                 case 1: //객실선택, 장바구니에 담기
@@ -278,7 +291,6 @@ public class HotelLounge {
         int inputNumber = inputView.getInputNumber(0, roomLength);
         Room selectRoom = roomList.get(inputNumber);
         if (inputNumber == 0) {
-            return;
         } else {
             if (selectRoom.isReserved()) {
                 showAlreadyReservedRoomView();//"이미 예약됬습니다."
@@ -328,7 +340,7 @@ public class HotelLounge {
     private void showAdminMainView() {
         boolean flag = true;
         while (flag) {
-            outputView.printAdminMainView(customer);
+            mainOutput.printAdminMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 2);
             switch (inputNumber) {
                 case 1:
@@ -350,12 +362,12 @@ public class HotelLounge {
     private void showMyPage() {
         Map<String, Reservation> reservationMap = reservationService.getReservationMap(
             customer.getId());
-        outputView.printMyPageView(customer, reservationMap);
+        myPageOutput.printMyPageView(customer, reservationMap);
         inputView.getInputNumber(1, 1);
     }
 
     private boolean showLogoutView() {
-        outputView.printLogoutView(customer);
+        logoutOutput.printLogoutView(customer);
         int inputNumber = inputView.getInputNumber(1, 2);
 
         return inputNumber == 2; // 취소를 선택할 때
