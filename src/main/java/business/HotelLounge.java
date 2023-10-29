@@ -8,6 +8,7 @@ import io.input.InputView;
 import io.output.BasketOutput;
 import io.output.OutputView;
 import io.output.ReservationOutput;
+import io.output.RoomCheckOutput;
 import java.util.List;
 import java.util.Map;
 import service.BasketService;
@@ -28,6 +29,7 @@ public class HotelLounge {
     private final ReservationService reservationService = new ReservationService();
     private final ReservationOutput reservationOutput = new ReservationOutput();
     private final RoomService roomService = new RoomService();
+    private final RoomCheckOutput roomCheckOutput = new RoomCheckOutput();
     private Customer customer;
 
     //1초 대기를 위한 스레드 sleep
@@ -273,7 +275,7 @@ public class HotelLounge {
         Map<Integer, Room> roomList = roomService.getRoomList();
         int roomLength = roomList.size();
 
-        outputView.printSelectRoomView(customer, roomList);
+        roomCheckOutput.printSelectRoomView(customer, roomList);
 
         int inputNumber = inputView.getInputNumber(0, roomLength);
         Room selectRoom = roomList.get(inputNumber);
@@ -292,12 +294,12 @@ public class HotelLounge {
 
     //이미 예약된 객실이라고 알리는 화면
     private void showAlreadyReservedRoomView() {
-        outputView.printAlreadyReservedRoomView();
+        roomCheckOutput.printAlreadyReservedRoomView();
     }
 
     //선택한 객실을 예약할 것인지에 대한 로직 취소할 시, 메인 화면으로 이동
     private void showCheckRoomView(Room selectRoom) {
-        outputView.printRoomInfo(selectRoom); //선택한 객실 확인 메세지
+        roomCheckOutput.printRoomInfo(selectRoom); //선택한 객실 확인 메세지
 
         int inputNumber = inputView.getInputNumber(1, 2);
         if (inputNumber == 1) {
@@ -313,12 +315,12 @@ public class HotelLounge {
 
     //객실 선택 확인 완료 화면
     private void showConfirmedCheckedRoomView() {
-        outputView.printConfirmedCheckedRoomView();
+        roomCheckOutput.printConfirmedCheckedRoomView();
     }
 
     //객실 선택 확인 취소 화면
     private void showCancelReserveRoomView() {
-        outputView.printCancelReserveRoomView();
+        roomCheckOutput.printCancelReserveRoomView();
     }
     // ------- 준 예약 끝(객실 장바구니에 담기) -------끝
 
