@@ -31,8 +31,8 @@ public class BasketOutput {
         for (int i = 0; i < basket.size(); i++) {
             Room room = basket.get(i);
             System.out.printf(
-                "%d. " + outputView.convert(room.getRoomType().getType(), 8) + " | %d | W %d\n",
-                i + 1, room.getNumber(),
+                "%d. %s | %d | W %d\n",
+                i + 1, room.getRoomType().getType(), room.getNumber(),
                 room.getCost());
         }
         System.out.println();
