@@ -145,9 +145,9 @@ public class HotelLounge {
      * 일반 손님일 경우의 메인 화면 출력
      */
     private void showCustomerMainView() {
-        roomService.resetReserved(); //시간 체크 후 reserved 변경
         boolean flag = true;
         while (flag) {
+            roomService.resetReserved(); //시간 체크 후 reserved 변경
             mainOutput.printCustomerMainView(customer);
             int inputNumber = inputView.getInputNumber(1, 5);
             switch (inputNumber) {
