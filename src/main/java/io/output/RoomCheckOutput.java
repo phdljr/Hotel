@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class RoomCheckOutput {
 
-    // ------- 준 예약(객실 장바구니에 담기) -------시작
     public void printSelectRoomView(Customer customer, Map<Integer, Room> roomList) {
         System.out.printf("[ 뇌정지 호텔 - %s님 ]\n", customer.getName());
         System.out.println("예약하실 객실을 선택해 주세요.");
@@ -52,6 +51,4 @@ public class RoomCheckOutput {
         System.out.println("취소 되었습니다.");
         System.out.println(); // 줄 띄움용
     }
-    // ------- 준 예약(객실 장바구니에 담기) -------끝
-
 }
