@@ -5,8 +5,6 @@ import java.util.List;
 
 public class BasketOutput {
 
-    private OutputView outputView = new OutputView();
-
     public void printBasketTitle(String customerName) { // 장바구니 제목 문구
         System.out.println("[ 뇌정지 호텔 - " + customerName + "님 ]");
     }
