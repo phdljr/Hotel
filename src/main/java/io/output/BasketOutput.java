@@ -28,8 +28,9 @@ public class BasketOutput {
     public void printBasketList(List<Room> basket) { // 장바구니 목록 출력
         for (int i = 0; i < basket.size(); i++) {
             Room room = basket.get(i);
-            System.out.printf("%d. %s | %s | W %d\n", i + 1, room.getNumber(),
-                room.getRoomType().getType(),
+            System.out.printf(
+                "%d. %s | %d | W %d\n",
+                i + 1, room.getRoomType().getType(), room.getNumber(),
                 room.getCost());
         }
         System.out.println();
