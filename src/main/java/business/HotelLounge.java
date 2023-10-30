@@ -292,6 +292,10 @@ public class HotelLounge {
 
         int inputNumber = inputView.getInputNumber(0, roomLength);
         Room selectRoom = roomList.get(inputNumber);
+        if (inputNumber == 0) {
+            return;
+        }
+        
         if (selectRoom.isReserved()) {
             showAlreadyReservedRoomView();//"이미 예약됬습니다."
             oneSecHold();//1초 대기
